@@ -17,6 +17,7 @@ if __name__ == '__main__':
     main()
 
 import pygame
+from pygame.locals import *
 import random
 pygame.init()
 
@@ -41,16 +42,17 @@ player = None
 powerstat = False
 
 # Variable to determine the level which the player is at
+global levelcount
 levelcount = 0
 
 # Background image for the main gameplay
-space = pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\Space' + '.png')
+space = pygame.image.load('Space.png')
 
 # Initializing the sounds necessary for the game
-one = pygame.mixer.Sound('C:\Users\chunn\OneDrive\Documents\Space Track\Audio\BGM1' + '.wav')
-three = pygame.mixer.Sound('C:\Users\chunn\OneDrive\Documents\Space Track\Audio\BGM' + '.wav')
-playerdeath = pygame.mixer.Sound('C:\Users\chunn\OneDrive\Documents\Space Track\Audio\playerdeath' + '.wav')
-completed = pygame.mixer.Sound('C:\Users\chunn\OneDrive\Documents\Space Track\Audio\complete' + '.wav')
+one = pygame.mixer.Sound('Audio\BGM1.wav')
+three = pygame.mixer.Sound('Audio\BGM.wav')
+playerdeath = pygame.mixer.Sound('Audio\playerdeath.wav')
+completed = pygame.mixer.Sound('Audio\complete.wav')
 
 '''Classes for objects necessary throughout the game'''
 
@@ -58,7 +60,7 @@ class heart(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.transform.scale(pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\heart' + '.png').convert_alpha(), (30, 30))
+        self.image = pygame.transform.scale(pygame.image.load('heart.png').convert_alpha(), (30, 30))
 
         self.rect = self.image.get_rect()
 
@@ -79,7 +81,7 @@ class power(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.transform.scale(pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\power' + '.png').convert_alpha(), (30, 30))
+        self.image = pygame.transform.scale(pygame.image.load('power.png').convert_alpha(), (30, 30))
 
         self.rect = self.image.get_rect()
 
@@ -103,7 +105,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # Set height, width
-        self.image = pygame.transform.scale(pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\spaceship' + '.png').convert_alpha(), (55, 67))
+        self.image = pygame.transform.scale(pygame.image.load('spaceship.png').convert_alpha(), (55, 67))
 
         # Make our top-left corner the passed-in location
         self.rect = self.image.get_rect()
@@ -153,7 +155,7 @@ class bullet(pygame.sprite.Sprite):
         # Calling the parent constructor
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.transform.scale(pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\Bullet' + '.png').convert_alpha(), (8,28))
+        self.image = pygame.transform.scale(pygame.image.load('Bullet.png').convert_alpha(), (8,28))
 
         self.rect = self.image.get_rect()
 
@@ -170,7 +172,7 @@ class pbullet(pygame.sprite.Sprite):
         # Calling the parent constructor
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.transform.scale(pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\pbullet' + '.png').convert_alpha(), (40,30))
+        self.image = pygame.transform.scale(pygame.image.load('pbullet.png').convert_alpha(), (40,30))
 
         self.rect = self.image.get_rect()
 
@@ -186,7 +188,7 @@ class enemy(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.transform.scale(pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\enemy' + '.png').convert_alpha(), (30, 30))
+        self.image = pygame.transform.scale(pygame.image.load('enemy.png').convert_alpha(), (30, 30))
 
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(45,335)
@@ -218,7 +220,7 @@ class enemy1(pygame.sprite.Sprite):
         # Initializing several variables for location and animation
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.transform.scale(pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\enemy1' + '.png').convert_alpha(), (30, 30))
+        self.image = pygame.transform.scale(pygame.image.load('enemy1.png').convert_alpha(), (30, 30))
 
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(45,335)
@@ -265,7 +267,7 @@ class wall(pygame.sprite.Sprite):
 # Main Menu
 def start():
     # Storing background image in a variable
-    background = pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\mainscreen' + '.png')
+    background = pygame.image.load('mainscreen.png')
 
     # Setting the screen
     size = (width, height)
@@ -331,7 +333,7 @@ def start():
 def instruction():
 
     # Setting the screen
-    background = pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\mainscreen' + '.png')
+    background = pygame.image.load('mainscreen.png')
     size = (width, height)
     screen = pygame.display.set_mode(size)
 
@@ -408,7 +410,7 @@ def instruction():
 def credits():
 
     # Setting the screen
-    background = pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\mainscreen' + '.png')
+    background = pygame.image.load('mainscreen.png')
     size = (width, height)
     screen = pygame.display.set_mode(size)
 
@@ -461,9 +463,6 @@ def credits():
         text = subfont.render("Jeremy, Roman", True, black)
         screen.blit(text, [130, 245])
 
-        text = subfont.render("Huge Thanks to: Mrs. Yi", True, black)
-        screen.blit(text, [100, 285])
-
         text = subfont.render("Click anywhere to continue...", True, black)
         screen.blit(text, [140, 570])
 
@@ -471,7 +470,7 @@ def credits():
 
 # Function for displaying screen when the user has died
 def gameover():
-    backgroundend = pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\explosion' + '.png')
+    backgroundend = pygame.image.load('explosion.png')
 
     # Conditionals to check where the user died at, and determining which music to stop
     if levelcount == 1 or levelcount == 2:
@@ -486,7 +485,6 @@ def gameover():
     size = (width, height)
     screen = pygame.display.set_mode(size)
     global doneover
-    global levelcount
 
     pygame.init()
 
@@ -552,7 +550,7 @@ def gameover():
 
 # Screen when user completes a level
 def complete():
-    backgroundcom = pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\complete' + '.png')
+    backgroundcom = pygame.image.load('complete.png')
 
     # Conditionals to see which level user completed from, and stopping the music accordingly
     if levelcount == 1 or levelcount == 2:
@@ -567,7 +565,6 @@ def complete():
     size = (width, height)
     screen = pygame.display.set_mode(size)
     global donecom
-    global levelcount
 
     pygame.init()
 
@@ -627,7 +624,7 @@ def complete():
 
 # When the user is out of lives to continue the game
 def stop():
-    backgroundstop = pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\end' + '.png')
+    backgroundstop = pygame.image.load('end.png')
     backgroundstop = pygame.transform.scale(backgroundstop, [375,440])
 
     # Conditionals to check which level user died from, and stopping the music accordingly
@@ -682,7 +679,7 @@ def stop():
 
 # Which the user completes the whole game
 def end():
-    backgroundcom = pygame.image.load('C:\Users\chunn\OneDrive\Documents\Space Track\end1' + '.png')
+    backgroundcom = pygame.image.load('end1.png')
     backgroundcom = pygame.transform.scale(backgroundcom, [580,440])
 
     if levelcount == 3:
@@ -733,7 +730,7 @@ pygame.init()
 screen = pygame.display.set_mode([width, height])
 
 # Set the title of the window
-pygame.display.set_caption("ISU")
+pygame.display.set_caption("Space Track")
 
 # Lists for various purposes
 all_sprite_list = pygame.sprite.Group()
@@ -779,7 +776,6 @@ def level1():
     global lives
     global kills
     global player
-    global levelcount
     done = False
     counter = 0
 
@@ -845,7 +841,7 @@ def level1():
             hearts_hit_list = pygame.sprite.spritecollide(player,heart_list,True)
             for Heart in hearts_hit_list:
                 lives += 1
-                print lives
+                print(lives)
 
         for Bullet in bullet_list:
             # Checks if the bullet hits the enemy
@@ -868,7 +864,7 @@ def level1():
                 all_sprite_list.remove(Enemy)
                 lives -= 1
                 kills = 0
-                print lives
+                print(lives)
 
                 # Checking the number of lives which the player has
                 if lives  == 0:
@@ -915,7 +911,6 @@ def level2():
     global lives
     global kills
     global player
-    global levelcount
     done = False
     counter = 0
 
@@ -981,7 +976,7 @@ def level2():
             hearts_hit_list = pygame.sprite.spritecollide(player,heart_list,True)
             for Heart in hearts_hit_list:
                 lives += 1
-                print lives
+                print(lives)
 
         for Bullet in bullet_list:
             # Checks if the bullet hits the enemy
@@ -1021,7 +1016,7 @@ def level2():
                 all_sprite_list.remove(Enemy)
                 lives -= 1
                 kills = 0
-                print lives
+                print(lives)
 
                 # Checking the number of lives which the player has
                 if lives  == 0:
@@ -1068,7 +1063,6 @@ def level3():
     global lives
     global kills
     global player
-    global levelcount
     global powerstat
     done = False
     counter = 0
@@ -1152,7 +1146,7 @@ def level3():
             hearts_hit_list = pygame.sprite.spritecollide(player,heart_list,True)
             for Heart in hearts_hit_list:
                 lives += 1
-                print lives
+                print(lives)
 
         for Power in power_list:
             # Checks if the power-up is obtained by player
@@ -1171,7 +1165,7 @@ def level3():
                 kills += 1
                 counter += 1
                 heartcount += 1
-                print kills
+                print(kills)
 
         for Bullet in bullet_list:
             # Checks if the bullet hits the enemy
@@ -1184,7 +1178,7 @@ def level3():
                 kills += 1
                 counter += 1
                 heartcount += 1
-                print kills
+                print(kills)
 
         for Enemy in enemy_list:
             # Checks if the enemy collides with the player
@@ -1196,7 +1190,7 @@ def level3():
                 all_sprite_list.remove(Enemy)
                 lives -= 1
                 kills = 0
-                print lives
+                print(lives)
 
                 # Checking the number of lives which the player has
                 if lives  == 0:
@@ -1215,7 +1209,7 @@ def level3():
                 all_sprite_list.remove(Enemy1)
                 lives -= 1
                 kills = 0
-                print lives
+                print(lives)
 
                 # Checking the number of lives which the player has
                 if lives  == 0:
@@ -1252,7 +1246,7 @@ def level3():
                     pbullet_list.remove(Pbullet)
                     all_sprite_list.remove(Pbullet)
                     kills += 1
-                    print kills
+                    print(kills)
 
             for Pbullet in pbullet_list:
                 # Checks if the powered bullet hits the enemy
@@ -1263,7 +1257,7 @@ def level3():
                     pbullet_list.remove(Pbullet)
                     all_sprite_list.remove(Pbullet)
                     kills += 1
-                    print kills
+                    print(kills)
 
         # Dropping heart or power-up after the player gains specific amount of kills
         if counter >= 11:
